@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4ed">
+  <meta name="description" content="Cookwise gives you clear recipes with exact ingredients, step-by-step timing, and the reason behind every cooking step.">
+  <meta property="og:title" content="Cookwise — Know what to add, when, and why">
+  <meta property="og:description" content="A calm cooking guide with step-by-step recipes, serving controls, and a built-in kitchen timer.">
+  <title>Cookwise — Know what to add, when, and why</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Cookwise home">
+      <span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span>cookwise<span class="brand-period">.</span></span>
+    </a>
+    <p class="top-note">Know what to add, when, and why.</p>
+    <a class="header-link" href="#recipe-workspace">Find a recipe <span aria-hidden="true">↓</span></a>
+  </header>
+
+  <main>
+    <section class="intro page-width">
+      <div class="intro-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR EVERYDAY COOKING GUIDE</p>
+        <h1>Make the dish.<br><em>Know the why.</em></h1>
+        <p class="intro-text">Clear ingredients, calm step-by-step directions, and the little cooking cues that help you feel confident at the stove.</p>
+        <a class="button button-dark" href="#recipe-workspace">Choose a dish <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="intro-art" aria-label="Illustration of a pot of food" role="img">
+        <div class="art-sun"></div>
+        <div class="art-plate"><div class="art-food">🥘</div></div>
+        <span class="art-note note-one">A pinch of patience</span>
+        <span class="art-note note-two">A little more lemon</span>
+        <span class="art-leaf leaf-one">✳</span>
+        <span class="art-leaf leaf-two">✳</span>
+      </div>
+      <div class="intro-foot"><span class="mono">01 — PICK A RECIPE</span><span class="mono">02 — PREP YOUR INGREDIENTS</span><span class="mono">03 — COOK WITH CONFIDENCE</span></div>
+    </section>
+
+    <section class="workspace page-width" id="recipe-workspace" aria-label="Recipe library and cooking guide">
+      <aside class="library panel">
+        <div class="library-heading">
+          <div><p class="eyebrow-small">THE RECIPE BOX</p><h2>What sounds good?</h2></div>
+          <span class="recipe-count" id="recipeCount">0 dishes</span>
+        </div>
+        <label class="search-field">
+          <span aria-hidden="true">⌕</span>
+          <input id="recipeSearch" type="search" placeholder="Search a dish or ingredient" aria-label="Search recipes and ingredients">
+          <kbd>/</kbd>
+        </label>
+        <div class="category-row" id="categoryFilters" aria-label="Filter recipes">
+          <button type="button" class="category-chip is-active" data-category="All" aria-pressed="true">All</button>
+          <button type="button" class="category-chip" data-category="Breakfast" aria-pressed="false">Breakfast</button>
+          <button type="button" class="category-chip" data-category="Quick meal" aria-pressed="false">Quick meals</button>
+          <button type="button" class="category-chip" data-category="Comfort food" aria-pressed="false">Comfort</button>
+          <button type="button" class="category-chip" data-category="Snack" aria-pressed="false">Snacks</button>
+        </div>
+        <div class="library-label"><span class="mono">GOOD THINGS TO MAKE</span><span id="matchCount">0</span></div>
+        <div class="recipe-list" id="recipeList" aria-live="polite"></div>
+        <div class="empty-search" id="emptySearch" hidden>
+          <span aria-hidden="true">⌕</span><h3>No recipe found</h3><p>Try a dish name or ingredient, like “dal” or “tomato”.</p>
+        </div>
+        <p class="library-foot"><span class="tiny-leaf">✳</span> A small, growing recipe collection made for real home kitchens.</p>
+      </aside>
+
+      <section class="recipe-detail panel" id="recipeDetail" aria-live="polite" aria-label="Selected recipe"></section>
+    </section>
+
+    <section class="closing page-width">
+      <div class="closing-mark" aria-hidden="true">✳</div>
+      <div><p class="eyebrow-small">A NOTE FROM THE KITCHEN</p><h2>Recipes are a guide.<br><em>Your senses are the secret.</em></h2></div>
+      <p>Heat can vary from stove to stove. Taste as you go, adjust the seasoning, and use the visual cues in each step to guide you.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer page-width">
+    <a class="brand footer-brand" href="#"><span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span><span>cookwise<span class="brand-period">.</span></span></a>
+    <p>Made for curious cooks, one step at a time.</p>
+    <span class="mono">YOUR KITCHEN, YOUR PACE</span>
+  </footer>
+
+  <dialog class="cook-dialog" id="cookDialog" aria-labelledby="cookStepTitle">
+    <div class="dialog-top">
+      <div><p class="eyebrow-small">COOK MODE</p><p class="dialog-recipe-name" id="dialogRecipeName"></p></div>
+      <button class="icon-button" id="closeCookDialog" type="button" aria-label="Close cooking mode">×</button>
+    </div>
+    <div class="dialog-progress"><span id="dialogProgressBar"></span></div>
+    <div class="dialog-step-meta"><span class="mono" id="dialogStepCount"></span><span class="step-time" id="dialogStepTime"></span></div>
+    <h2 id="cookStepTitle"></h2>
+    <div class="add-now-card"><p class="eyebrow-small">ADD AT THIS STEP</p><p id="dialogAddNow"></p></div>
+    <div class="dialog-instructions"><p class="eyebrow-small">WHAT TO DO</p><p id="dialogInstructions"></p></div>
+    <div class="dialog-insight-grid">
+      <section class="insight-card"><p class="eyebrow-small">WHY THIS MATTERS</p><p id="dialogWhy"></p></section>
+      <section class="insight-card cue-card"><p class="eyebrow-small">LOOK FOR THIS</p><p id="dialogCue"></p></section>
+    </div>
+    <div class="timer-card">
+      <div><p class="eyebrow-small">OPTIONAL KITCHEN TIMER</p><strong id="timerDisplay">00:00</strong></div>
+      <button class="button button-outline" id="timerButton" type="button">Start timer</button>
+    </div>
+    <div class="dialog-actions">
+      <button class="button button-outline" id="previousStep" type="button">← Previous</button>
+      <button class="button button-dark" id="nextStep" type="button">Next step <span aria-hidden="true">→</span></button>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
